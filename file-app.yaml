@@ -16,7 +16,7 @@ spec:
       containers:
       - name: nginx
         # ここを今後GitHub Actionsが自動で書き換えます
-        image: ghcr.io/parumenn/file-k8s:54d9d39731a024e598a25c94c3d36ffb1e86045d
+        image: ghcr.io/parumenn/file-k8s:b1ca7c9488cf6f8a11e40ef9b771b8ae9e34ed8f
         imagePullPolicy: Always
         ports:
         - containerPort: 80
