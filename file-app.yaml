@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file-app
+  template:
+    metadata:
+      labels:
+        app: file-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html
+            name: file-data
+      volumes:
+        - name: file-data
+          persistentVolumeClaim:
+            claimName: file-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-svc
+  namespace: default
+spec:
+  selector:
+    app: file-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
